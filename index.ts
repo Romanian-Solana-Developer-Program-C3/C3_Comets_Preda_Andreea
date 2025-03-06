@@ -6,7 +6,10 @@ import { getInput } from "./utils";
 
 const KEYPAIR_FNAME = "keypair.json";
 const ADMIN_PUBKEY = "42NYBuNKnAvLAB9zjftcqXavYLzM5NhNR4LH8ztJW8qM";
+
 const connection = new Connection("https://api.devnet.solana.com");
+//const connection = new Connection("https://solana-api.projectserum.com");
+
 
 // Execute our enrollment transaction
 (async () => {
