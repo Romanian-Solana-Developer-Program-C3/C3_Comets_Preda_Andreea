@@ -5,9 +5,12 @@ import { getKeypairFromEnvironment, getExplorerLink,} from "@solana-developers/h
 
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 
-const MINT = new PublicKey("");
+const MINT = new PublicKey("EZE9Fws26RYE7ZYYdXzxgZt27qr72RDzAdoNAoRoRbTg");
 
 async function mintToken(amount: number, mint: PublicKey){
+    
+    console.log(`Minting token ${mint.toBase58()}...`);
+
     const connection = new Connection(clusterApiUrl("devnet"));
     const kp = getKeypairFromEnvironment("SECRET_KEY");
 
@@ -24,3 +27,5 @@ async function mintToken(amount: number, mint: PublicKey){
 
     console.log(`Done with link: ${link}`);
 }
+
+mintToken(10 * 10 ** 9, MINT);
