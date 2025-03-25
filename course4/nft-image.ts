@@ -16,32 +16,24 @@ const signer = createSignerFromKeypair(umi, keypair);
 umi.use(irysUploader());
 umi.use(signerIdentity(signer));
 
-const IMG_URI = "https://"; // You will need to provide the actual image URI
+const IMAGE_FILE = "./road.png"; // You will need to provide the actual image URI
 
-async function uploadMetadata() {
+const IMG_URI = "https://devnet.irys.xyz/xUPgNCP8uRsyy6hWKQEEhGUWaBQMWePRvvnLBAAxP72";
+
+export async function uploadImage() {
   try {
-    const metadata = {
-      name: "Comets Road",
-      symbol: "ROAD",
-      description: "On the Stellar road",  // Fixed typo here
-      image: IMG_URI,
-      attributes: [
-        { trait_type: "Color", value: "red" },
-        { trait_type: "Material", value: "wool" },
-        { trait_type: "Size", value: "very big" },
-      ],
-      properties: {
-        files: [{ type: "image/png", uri: IMG_URI }],
-      },
-    };
 
-    // Upload the metadata JSON
-    const metadataUri = await umi.uploader.uploadJson(metadata);
-    console.log("Metadata uploaded successfully! Metadata URI:", metadataUri);
+    console.log("Uploading image... ");
+    const img = await readFile(IMAGE_FILE);
+
+    const imgConverted = createGenericFile(new Uint8Array(img), "image/png");
+
+    const [myUri] = await umi.uploader.upload([imgConverted]);
+    console.log("Done with URI: ", myUri);
 
   } catch (err) {
-    console.error("[uploadMetadata] Failed with error:", err);
+    console.error("[uploadImage] Failed with error:", err);
   }
 }
 
-uploadMetadata();
+uploadImage();
